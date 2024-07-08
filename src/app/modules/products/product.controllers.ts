@@ -9,6 +9,15 @@ const createProduct = async (req: Request, res: Response) => {
     data: result,
   });
 };
+const getProducts = async (req: Request, res: Response) => {
+  const result = await ProductServices.getProductsFromDB();
+  res.status(200).json({
+    success: true,
+    message: "Product created successfully",
+    data: result,
+  });
+};
 export const ProductControllers = {
   createProduct,
+  getProducts,
 };
