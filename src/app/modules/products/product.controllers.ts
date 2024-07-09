@@ -13,11 +13,21 @@ const getProducts = async (req: Request, res: Response) => {
   const result = await ProductServices.getProductsFromDB();
   res.status(200).json({
     success: true,
-    message: "Product created successfully",
+    message: "Products retrieved successfully",
+    data: result,
+  });
+};
+const getSingleProducts = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await ProductServices.getSingleProductsFromDB(id);
+  res.status(200).json({
+    success: true,
+    message: "Product retrieved successfully",
     data: result,
   });
 };
 export const ProductControllers = {
   createProduct,
   getProducts,
+  getSingleProducts,
 };
