@@ -10,7 +10,7 @@ const createProduct = async (req: Request, res: Response) => {
   });
 };
 const getProducts = async (req: Request, res: Response) => {
-  const result = await ProductServices.getProductsFromDB();
+  const result = await ProductServices.getProductsFromDB(req.query);
   res.status(200).json({
     success: true,
     message: "Products retrieved successfully",
