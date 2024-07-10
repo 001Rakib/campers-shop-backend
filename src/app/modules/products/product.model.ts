@@ -17,11 +17,6 @@ const productSchema = new Schema<TProduct>({
     required: true,
     min: 0,
   },
-  quantity: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
   description: {
     type: String,
     required: true,
@@ -38,7 +33,7 @@ const productSchema = new Schema<TProduct>({
     max: 5,
     default: 0,
   },
-  images: {
+  image: {
     type: String,
     required: true,
   },
