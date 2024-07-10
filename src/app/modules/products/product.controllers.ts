@@ -26,6 +26,15 @@ const getSingleProducts = async (req: Request, res: Response) => {
     data: result,
   });
 };
+const updateProduct = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await ProductServices.updateProductIntoDB(id, req.body);
+  res.status(200).json({
+    success: true,
+    message: "Product updated successfully",
+    data: result,
+  });
+};
 const deleteProductProducts = async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await ProductServices.deleteProductFromDB(id);
@@ -40,4 +49,5 @@ export const ProductControllers = {
   getProducts,
   getSingleProducts,
   deleteProductProducts,
+  updateProduct,
 };
