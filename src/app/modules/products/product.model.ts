@@ -37,6 +37,10 @@ const productSchema = new Schema<TProduct>({
     type: String,
     required: true,
   },
+  orderedQuantity: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export const Product = model<TProduct>("Product", productSchema);

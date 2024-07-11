@@ -6,6 +6,7 @@ type TProduct = {
   category: string;
   ratings: number;
   image: string;
+  orderedQuantity?: number;
 };
 
 export default TProduct;
