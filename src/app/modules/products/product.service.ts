@@ -6,24 +6,35 @@ const createProductIntoDB = async (payload: TProduct) => {
   return result;
 };
 const getProductsFromDB = async (query: Record<string, unknown>) => {
+  const queryObj = { ...query };
+
   //search product
   let searchItem = "";
   const productSearchableFields = ["name", "description"];
-
-  if (query) {
+  if (query.searchItem) {
     searchItem = query?.searchItem as string;
   }
 
-  if (searchItem) {
-    const result = await Product.find({
-      $or: productSearchableFields.map((field) => ({
-        [field]: { $regex: searchItem, $options: "i" },
-      })),
-    });
-    return result;
+  const searchQuery = Product.find({
+    $or: productSearchableFields.map((field) => ({
+      [field]: { $regex: searchItem, $options: "i" },
+    })),
+  });
+
+  //filtering
+  const excludeFields = ["searchItem", "sort"];
+  excludeFields.forEach((elem) => delete queryObj[elem]);
+
+  const filterQuery = searchQuery.find(queryObj);
+
+  //sorting by price
+  let sort = "__v";
+  if (query.sort) {
+    sort = query.sort as string;
   }
 
-  const result = await Product.find();
+  const result = await filterQuery.sort(sort);
+
   return result;
 };
 const getSingleProductsFromDB = async (id: string) => {
